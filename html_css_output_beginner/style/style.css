@@ -30,10 +30,10 @@ header h1 {
 header ul {
     display: flex;
     justify-content: space-between;
+    gap: 0 25px;
 }
 
 header ul li {
-    margin-left: 25px;
     color: #5B5857;
 }
 
