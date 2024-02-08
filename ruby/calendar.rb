@@ -8,20 +8,18 @@ opt = OptionParser.new
 options = { month: Date.today.month }
 
 # 引数の受け取り
-opt.on('-m [month]', Integer) do |month|
+opt.on('-m [month]', Integer) {|month|
   if month >= 1 && month <= 12
     options[:month] = month
   else
-    puts "#{month} is neither a month number (1..12) nor a name"
-    exit
+    raise "#{month} is neither a month number (1..12) nor a name"
   end
-end
+}
 
 begin
   opt.parse!(ARGV)
-rescue NoMethodError
-  puts 'Only integers between 1 and 12'
-  exit
+rescue
+  raise 'Only integers between 1 and 12'
 end
 
 # データの用意
