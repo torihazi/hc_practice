@@ -24,7 +24,7 @@ class Golf
     elsif @score == -2 && @stroke != 1
       'イーグル'
     elsif @score == -3 && @stroke != 1
-      'アルバトラス'
+      'アルバトロス'
     elsif @score == -4
       'コンドル'
     elsif @stroke == 1
