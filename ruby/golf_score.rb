@@ -4,6 +4,15 @@
 # @param [Integer] par 規定打数
 # @param [Integer] stroke 自身の打数
 class Golf
+  SCORE_MAPPING = {
+    -4 => 'コンドル',
+    -3 => 'アルバトロス',
+    -2 => 'イーグル',
+    -1 => 'バーディ',
+    0 => 'パー',
+    1 => 'ボギー'
+  }.freeze
+
   def initialize(par, stroke)
     @par = par
     @stroke = stroke
@@ -13,22 +22,12 @@ class Golf
   def score_check
     @score = @stroke - @par
 
-    if @score == 1
-      'ボギー'
+    if @stroke == 1 && @par != 5
+      'ホールインワン'
     elsif @score >= 2
       "#{@score}ボギー"
-    elsif @score.zero?
-      'パー'
-    elsif @score == -1
-      'バーディ'
-    elsif @score == -2 && @stroke != 1
-      'イーグル'
-    elsif @score == -3 && @stroke != 1
-      'アルバトロス'
-    elsif @score == -4
-      'コンドル'
-    elsif @stroke == 1
-      'ホールインワン'
+    else
+      SCORE_MAPPING[@score]
     end
   end
 end
