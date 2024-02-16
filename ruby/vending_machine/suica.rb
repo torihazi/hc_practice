@@ -15,10 +15,8 @@ class Suica
   end
 
   def top_up(money)
-    if money >= MIN_CHARGE
-      @balance += money
-    else
-      raise 'チャージは100円以上から可能です。'
-    end
+    raise 'チャージは100円以上から可能です。' unless money >= MIN_CHARGE
+
+    @balance += money
   end
 end
