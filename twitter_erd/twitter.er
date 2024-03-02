@@ -1,0 +1,93 @@
+[Users]
+    *id {label: "bigint, not null"}
+    email {label: "varchar(64), not null, uniq"}
+    user_name {label: "varchar(32), not null, uniq"}
+    tel {label: "varchar, not null, uniq"}
+    display_name {label: "varchar(16), not null"}
+    profile {label: "varchar(200)"}
+    place {label: "varchar(32)"}
+    web {label: "varchar(64)"}
+    birth {label: "datatime, not null"}
+    profile_image {label: "varchar"}
+    avatar_image {label: "varchar"}
+    created_at {label: "datatime, default CURRENT_TIMESTAMP, not null"}
+    updated_at {label: "datatime, default CURRENT_TIMESTAMP, not null"}
+
+[Tweets]
+    *id {label: "bigint, not null"}
+    +user_id {label: "bigint, not null, FK(Users)"}
+    content {label: "varchar(140)"}
+    created_at {label: "datatime, default CURRENT_TIMESTAMP, not null"}
+    updated_at {label: "datatime, default CURRENT_TIMESTAMP, not null"}
+
+[Retweets]
+    *id {label: "bigint, not null"}
+    +user_id {label: "bigint, not null, FK(Users)"}
+    +tweet_id {label: "bigint, not null, FK(Tweets)"}
+    created_at {label: "datatime, default CURRENT_TIMESTAMP, not null"}
+    updated_at {label: "datatime, default CURRENT_TIMESTAMP, not null"}
+
+[Follows]
+    *id {label: "bigint, not null"}
+    +followee_id {label: "bigint, not null, FK(Users)"}
+    +follower_id {label: "bigint, not null, FK(Users)"}
+    created_at {label: "datatime, default CURRENT_TIMESTAMP, not null"}
+    updated_at {label: "datatime, default CURRENT_TIMESTAMP, not null"}
+
+[Likes]
+    *id {label: "bigint, not null"}
+    +user_id {label: "bigint, not null, FK(Users)"}
+    +tweet_id {label: "bigint, not null, FK(Tweets)"}
+    created_at {label: "datatime, default CURRENT_TIMESTAMP, not null"}
+    updated_at {label: "datatime, default CURRENT_TIMESTAMP, not null"}
+
+[Bookmarks]
+    *id {label: "bigint, not null"}
+    +user_id {label: "bigint, not null, FK(Users)"}
+    +tweet_id {label: "bigint, not null, FK(Tweets)"}
+    created_at {label: "datatime, default CURRENT_TIMESTAMP, not null"}
+    updated_at {label: "datatime, default CURRENT_TIMESTAMP, not null"}
+
+[Directmessages]
+    *id {label: "bigint, not null"}
+    +sender_id {label: "bigint, not null, FK(Users)"}
+    +receiver_id {label: "bigint, not null, FK(Users)"}
+    content {label: "varchar"}
+    created_at {label: "datatime, default CURRENT_TIMESTAMP, not null"}
+    updated_at {label: "datatime, default CURRENT_TIMESTAMP, not null"}
+
+[Notifications]
+    *id {label: "bigint, not null"}
+    +user_id {label: "bigint, not null, FK(Users)"}
+    +eventtype_id {label: "smallint, not null, FK(Eventtypes)"}
+    related_event_record_id {label: "bigint, not null"}
+    is_check {label: "boolean, default 0, not null"}
+    created_at {label: "datatime, default CURRENT_TIMESTAMP, not null"}
+    updated_at {label: "datatime, default CURRENT_TIMESTAMP, not null"}
+
+# 通知の種類(0: いいね, 1: フォロー, 2: DMなど)
+[EventTypes]
+    *id {label: "smallint, not null"}
+    type_name {label: "varchar(10), not null"}
+
+
+# Relations
+# Cardinality    Syntax
+# 0 or 1         ?
+# exactly 1      1
+# 0 or more      *
+# 1 or more      +
+
+Users 1--* Tweets
+Users 1--* Retweets
+Users 1--* Follows
+Users 1--* Likes
+Users 1--* Bookmarks
+Users 1--* Directmessages
+Users 1--* Notifications
+
+Tweets 1--* Retweets
+Tweets 1--* Likes
+Tweets 1--* Bookmarks
+
+Notifications 1--1 EventTypes 
