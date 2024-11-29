@@ -6,7 +6,7 @@ import (
 )
 
 // テーブルを作成管理
-func SetupTables (db *sql.DB) error {
+func SetupTables(db *sql.DB) error {
 
 	// usersテーブル作成
 	if err := createTable(db); err != nil {
@@ -15,7 +15,6 @@ func SetupTables (db *sql.DB) error {
 
 	return nil
 }
-
 
 // usersテーブルを作成する
 func createTable(db *sql.DB) error {

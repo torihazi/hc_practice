@@ -20,7 +20,7 @@ func Connect(config *config.ConfigList) (*sql.DB, error) {
 
 	db, err := sql.Open(config.SQLDriver, conStr)
 	if err != nil {
-		return nil,fmt.Errorf("データベースの初期化に失敗しました: %w", err)
+		return nil, fmt.Errorf("データベースの初期化に失敗しました: %w", err)
 	}
 
 	if err := db.Ping(); err != nil {

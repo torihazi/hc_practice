@@ -56,7 +56,7 @@ func main() {
 	defer file.Close()
 
 	// 取得したファイルからデータを読み込み、insert
-	if err := database.LogImport(file, db); err != nil {
+	if err := utils.LogImport(file, db); err != nil {
 		log.Fatal(err)
 	}
 
